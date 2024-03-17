@@ -79,16 +79,6 @@ function Login() {
             </button>
           </div>
         </form>
-
-        <p className="mt-4 text-sm text-center text-gray-400">
-          Don't have an account?{' '}
-          <Link
-            href="/signUp"
-            className="font-medium text-white hover:underline"
-          >
-            Sign up
-          </Link>
-        </p>
       </div>
     </div>
   )
