@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import axios from '../../../src/axios.jsx'
 
 function setCookie(cname, cvalue, exdays) {
   var d = new Date()
@@ -20,23 +21,18 @@ function Login() {
     const email = data.get('email')
     const password = data.get('password')
 
-    fetch('https://news-pulse72-backend.vercel.app/users/signIn', {
-      method: 'POST',
-      body: JSON.stringify({
+    axios
+      .post('/users/signIn', {
         email,
         password,
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then((res) => res.json())
+      })
       .then((res) => {
-        if (res.accessToken === undefined || res.userId === undefined) {
+        const data = res.data
+        if (data.accessToken === undefined || data.userId === undefined) {
           router.push('/admin/login')
         } else {
-          setCookie('accessToken', res.accessToken, { maxAge: 3600 })
-          setCookie('userId', res.userId, { maxAge: 3600 })
+          setCookie('accessToken', data.accessToken, { maxAge: 3600 })
+          setCookie('userId', data.userId, { maxAge: 3600 })
           router.push('/admin/allNews')
         }
       })
@@ -99,3 +95,7 @@ function Login() {
 }
 
 export default Login
+
+Login.getLayout = function PageLayout(page) {
+  return <>{page} </>
+}
