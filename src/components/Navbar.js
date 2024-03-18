@@ -80,7 +80,7 @@ export default function Navbar() {
   const handleLogout = () => {
     deleteCookie('accessToken')
     deleteCookie('userId')
-    router.reload()
+    router.push('/')
   }
 
   return (

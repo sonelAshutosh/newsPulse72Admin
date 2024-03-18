@@ -14,7 +14,10 @@ function middleware(request) {
   if (
     !isLoggedSession &&
     url.includes('/admin') &&
-    !url.includes('/admin/login')
+    !url.includes('/admin/login') &&
+    url.includes('/admin/allNews')
+    // url.includes('/admin/verified')
+    // url.includes('/admin/notVerified')
   ) {
     return NextResponse.redirect(new URL('/admin/login', request.url))
   }

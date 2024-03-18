@@ -13,7 +13,9 @@ function setCookie(cname, cvalue, exdays) {
 function Login() {
   const router = useRouter()
 
-  const handleLogin = (e) => {
+  const [isAdmin, setIsAdmin] = React.useState(true)
+
+  const handleLogin = async (e) => {
     e.preventDefault()
 
     const data = new FormData(e.target)
@@ -21,21 +23,22 @@ function Login() {
     const email = data.get('email')
     const password = data.get('password')
 
-    axios
-      .post('/users/signIn', {
+    try {
+      const res = await axios.post('/users/admin/signIn', {
         email,
         password,
       })
-      .then((res) => {
-        const data = res.data
-        if (data.accessToken === undefined || data.userId === undefined) {
-          router.push('/admin/login')
-        } else {
-          setCookie('accessToken', data.accessToken, { maxAge: 3600 })
-          setCookie('userId', data.userId, { maxAge: 3600 })
-          router.push('/admin/allNews')
-        }
-      })
+      const data = await res.data
+      if (data.accessToken === undefined || data.userId === undefined) {
+        router.push('/admin/login')
+      } else {
+        setCookie('accessToken', data.accessToken, { maxAge: 3600 })
+        setCookie('userId', data.userId, { maxAge: 3600 })
+        router.push('/admin/allNews')
+      }
+    } catch (err) {
+      setIsAdmin(false)
+    }
   }
 
   return (
@@ -56,6 +59,7 @@ function Login() {
               type="email"
               id="email"
               name="email"
+              required
               className="block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
@@ -70,9 +74,19 @@ function Login() {
               type="password"
               id="password"
               name="password"
+              required
               className="block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
+
+          {isAdmin ? (
+            ''
+          ) : (
+            <div className="bg-red-400 p-2 mt-8 rounded-lg flex justify-center font-extrabold tracking-wider">
+              You are NOT a Admin
+            </div>
+          )}
+
           <div className="mt-8">
             <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-900 focus:outline-none focus:bg-gray-900">
               Login

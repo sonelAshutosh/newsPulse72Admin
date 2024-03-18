@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react'
 import Tick from '@/svg/Tick.js'
 import Link from 'next/link.js'
+import Comments from '@/components/Comments/Comments.js'
 
 function Index() {
   const router = useRouter()
@@ -96,14 +97,17 @@ function Index() {
         </Link>
       </div>
 
-      <a
-        className="bg-gray-400 font-bold text-black p-4 rounded-lg shadow-lg active:bg-gray-600 hover:bg-gray-500 flex place-items-center"
-        href={oneNews.sourceURL}
+      <Link
+        href={oneNews.sourceURL || '/'}
         target="_blank"
+        className="bg-gray-400 font-bold text-black p-4 rounded-lg shadow-lg active:bg-gray-600 hover:bg-gray-500 flex place-items-center"
       >
         View Source
         <Arrow />
-      </a>
+      </Link>
+      <div>
+        <Comments />
+      </div>
     </div>
   )
 }

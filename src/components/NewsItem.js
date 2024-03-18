@@ -14,11 +14,11 @@ function NewsItem({ data }) {
         </div>
         <div className="flex flex-col justify-between flex-grow">
           <p className="leading-relaxed text-base ">{data.title}</p>
-          <div className="flex justify-between place-items-end">
+          <div className="flex justify-between place-items-center">
             <Link
               key={data._id}
               href={`allNews/${data._id}`}
-              className="mt-3 text-black hover:text-blue-800 inline-flex items-center cursor-pointer"
+              className="my-2 text-black hover:text-blue-800 inline-flex items-center cursor-pointer"
             >
               Read More
               <Arrow />
