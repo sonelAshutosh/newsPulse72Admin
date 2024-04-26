@@ -51,19 +51,14 @@ function Edit() {
     const category = data.get('category')
     const isVerified = data.get('isVerified')
 
-    await axios
-      .put(`/news/update/${id}`, {
-        title,
-        content,
-        summary,
-        category,
-        isVerified,
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          router.push('/admin/allNews')
-        }
-      })
+    const res = await axios.put(`/news/update/${id}`, {
+      title,
+      content,
+      summary,
+      category,
+      isVerified,
+    })
+    if (res.status === 200) router.push('/admin/allNews')
   }
 
   useEffect(() => {
@@ -160,17 +155,17 @@ function Edit() {
             onChange={handleCategoryChange}
           >
             <option value="politics">Politics</option>
-            <option value="Business">Business</option>
-            <option value="Technology">Technology</option>
-            <option value="Science">Science</option>
-            <option value="Health">Health</option>
-            <option value="Sports">Sports</option>
-            <option value="Entertainment">Entertainment</option>
-            <option value="Environment">Environment</option>
-            <option value="Education">Education</option>
-            <option value="Travel">Travel</option>
-            <option value="Crime and Justice">Crime and Justice</option>
-            <option value="Weather">Weather</option>
+            <option value="business">Business</option>
+            <option value="technology">Technology</option>
+            <option value="science">Science</option>
+            <option value="health">Health</option>
+            <option value="sports">Sports</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="environment">Environment</option>
+            <option value="education">Education</option>
+            <option value="travel">Travel</option>
+            <option value="crime">Crime</option>
+            <option value="weather">Weather</option>
           </select>
         </div>
         <div className="flex justify-center my-4">
