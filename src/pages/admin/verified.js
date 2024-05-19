@@ -7,7 +7,7 @@ function Verified() {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get('/news/verified')
+      const res = await axios.get('/news/verified/true')
       const news = await res.data
 
       setNews(news.news)

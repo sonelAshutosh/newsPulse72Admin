@@ -12,6 +12,7 @@ function Edit() {
     summary: '',
     category: '',
     isVerified: '',
+    imageURL: '',
   })
 
   const [title, setTitle] = useState('')
@@ -19,6 +20,7 @@ function Edit() {
   const [summary, setSummary] = useState('')
   const [category, setCategory] = useState('')
   const [isVerified, setIsVerified] = useState('')
+  const [imageURL, setImageURL] = useState('')
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value)
@@ -40,6 +42,10 @@ function Edit() {
     setIsVerified(e.target.value)
   }
 
+  const handleImageURLChange = (e) => {
+    setImageURL(e.target.value)
+  }
+
   const handleUpdate = async (e) => {
     e.preventDefault()
 
@@ -50,6 +56,7 @@ function Edit() {
     const summary = data.get('summary')
     const category = data.get('category')
     const isVerified = data.get('isVerified')
+    const imageURL = data.get('imageURL')
 
     const res = await axios.put(`/news/update/${id}`, {
       title,
@@ -57,7 +64,11 @@ function Edit() {
       summary,
       category,
       isVerified,
+      imageURL,
     })
+
+    console.log(title, content, summary, category, isVerified, imageURL)
+
     if (res.status === 200) router.push('/admin/allNews')
   }
 
@@ -75,6 +86,7 @@ function Edit() {
           setSummary(data.news.summary)
           setCategory(data.news.category)
           setIsVerified(data.news.isVerified)
+          setImageURL(data.news.imageURL)
         } catch (err) {
           console.log(err)
         }
@@ -98,6 +110,19 @@ function Edit() {
             value={title}
             className="border border-black rounded-md p-2"
             onChange={handleTitleChange}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="imageURL" className="text-lg font-semibold p-2">
+            Image URL
+          </label>
+          <input
+            type="text"
+            id="imageURL"
+            name="imageURL"
+            value={imageURL}
+            className="border border-black rounded-md p-2"
+            onChange={handleImageURLChange}
           />
         </div>
         <div className="flex flex-col">

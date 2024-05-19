@@ -14,6 +14,9 @@ function NewsItem({ data }) {
         </div>
         <div className="flex flex-col justify-between flex-grow">
           <p className="leading-relaxed text-base ">{data.title}</p>
+          <div className="border border-black p-1 w-full rounded-lg">
+            {data.category}
+          </div>
           <div className="flex justify-between place-items-center">
             <Link
               key={data._id}

@@ -7,7 +7,7 @@ function NotVerified() {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get('/news/notVerified')
+      const res = await axios.get('/news/notVerified/true')
       const news = await res.data
 
       setNews(news.news)
